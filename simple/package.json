@@ -1,0 +1,19 @@
+{
+  "name": "serperscript",
+  "version": "1.0.0",
+  "description": "we get the first 10 results from google and their descriptions, we then ask Openai to summarize this and give us a senseful answeer on the initial query. ",
+  "main": "serperScript.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "XY Corp"
+  },
+  "author": "lamaranelson",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "dotenv": "^16.3.1"
+  }
+}
