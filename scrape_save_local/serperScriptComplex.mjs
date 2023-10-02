@@ -32,17 +32,20 @@ async function fetchData(question) {
         });
 
 
-        const vectorStorePromise = prepareAndGetOrganicData(
+        const vectorStore = await prepareAndGetOrganicData(
             question,
             organicResults,
             false,
         );
+        
+        const results = await vectorStore.similaritySearch(question, 6);
 
-        const vectorStore = await Promise.all([vectorStorePromise]);
-
-        const snippets = organicResults.map(result => result.snippet).join("\n--------------------------------------------------\n");
-
-        const prompt = `The user's questions is:\nQuestion:${question}\n\nThese are the first 10 results snippets from Google search results:\n${snippets}\nPlease answer the user's question given the provided context only. Answer the user's question directly without referring to the snippets.`
+        // Combine the snippets into a single string
+        const snippets = results.map(result => result.pageContent).join("\n--------------------------------------------------\n");
+        
+        // console.log(snippets);
+        
+        const prompt = `The user's questions is:\nQuestion:${question}\n\nThese are the first 10 websites scraped results from Google search results:\n${snippets}\nPlease answer the user's question given the provided context only. Answer the user's question directly without referring to the snippets.`
 
         const openaiResponse = await axios.post(
             'https://api.openai.com/v1/chat/completions',
@@ -59,7 +62,7 @@ async function fetchData(question) {
                     }
                 ],
                 temperature: 1,
-                max_tokens: 500,
+                max_tokens: 1000,
                 top_p: 1,
                 frequency_penalty: 0,
                 presence_penalty: 0
@@ -78,4 +81,4 @@ async function fetchData(question) {
     }
 }
 
-fetchData("what is Flowise?");
+fetchData("what is flowise?");

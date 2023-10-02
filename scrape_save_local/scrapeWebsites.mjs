@@ -3,7 +3,7 @@ import { load } from "cheerio";
 import fs from "fs";
 import events from "events";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { FaissStore } from "langchain/vectorstores/faiss";
+import { HNSWLib } from "langchain/vectorstores/hnswlib";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import colors, { consoleLogWithColor } from "./logColoredMessages.mjs";
 
@@ -75,7 +75,6 @@ async function scrapeContent(
 
             if (whetherToStoreScrapedResults) {
                 if (!fs.existsSync(directoryToStoreScrapedData)) {
-                    // Create directoryToStoreScrapedData if it doesn't exist already
                     fs.mkdirSync(directoryToStoreScrapedData, { recursive: true });
                 }
 
@@ -135,7 +134,7 @@ export async function prepareAndGetOrganicData(
         scrapeContent(
             result,
             index + 1,
-            `${rootFolder}/scrapedResults_${query.replace(/[ .]/g, "_")}`,
+            `${rootFolder}/scrapedResults_${rootFolder.replace(/[ .]/g, "_")}`,
             whetherToStoreScrapedResults
         )
     );
@@ -158,16 +157,10 @@ export async function prepareAndGetOrganicData(
     consoleLogWithColor(`\nLength of docs is: ${docsToIndex.length}`);
 
     consoleLogWithColor(`\nPreparing local memory...`)
-    const vectorStore = await FaissStore.fromDocuments(
-        docsToIndex,
-        new OpenAIEmbeddings()
-    );
 
-    const directory = `${rootFolder}/vecstores/vectorStoreFor_${query.replace(/[ .]/g, "_")}`;
-
-    await vectorStore.save(directory);
+    const vectorStore = await HNSWLib.fromDocuments(docsToIndex, new OpenAIEmbeddings());
 
     consoleLogWithColor(`\nDone!`);
-
-    return Promise.resolve(vectorStore);
+    return vectorStore;
 }
+
