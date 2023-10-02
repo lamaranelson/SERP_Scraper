@@ -123,8 +123,8 @@ export async function prepareAndGetOrganicData(
 
     // console.log("inside the scrapeWebsites function")
 
-    // const sanitizedQuery = query.replace(/[^a-zA-Z0-9]/g, "_");
-    // const rootFolder = sanitizedQuery.replace(/\s+/g, "_");
+    const sanitizedQuery = query.replace(/[^a-zA-Z0-9]/g, "_");
+    const rootFolder = sanitizedQuery.replace(/\s+/g, "_");
 
     // if (!fs.existsSync(rootFolder)) {
     //     fs.mkdirSync(rootFolder, { recursive: true });
