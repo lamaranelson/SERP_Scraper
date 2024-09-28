@@ -10,3 +10,5 @@ node_modules/
 
 # MacOS System Files
 .DS_Store
+
+bfg.jar
