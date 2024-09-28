@@ -56,11 +56,11 @@ To modify the query, edit the `fetchData` function call at the bottom of the `se
 fetchData("your question here");
 ```
 
-## Complex Approach
+## Other Approach
 
 ### Description
 
-The complex approach enhances the simple one by scraping the full content of each webpage from the Google search results. It stores the scraped content in a local vector store using HNSWLib. This allows for more detailed and context-rich answers, as the language model has access to the full content of the pages rather than just the Google descriptions.
+This other more complex approach enhances the simple one by scraping the full content of each webpage from the Google search results. It stores the scraped content in a local vector store using HNSWLib, which provides efficient approximate nearest neighbor (ANN) searches on the vector embeddings of the content. This allows for more detailed and context-rich answers, as the language model has access to the full content of the pages rather than just the Google descriptions.
 
 ### Setup
 
