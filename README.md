@@ -1,6 +1,6 @@
 # Google SERP Example
 
-This repository contains two command-line interface (CLI) programs that demonstrate different approaches to fetching and processing Google search results using the Serper API and OpenAI's language models.
+This repository contains two command-line interface programs that demonstrate different approaches to fetching and processing Google search results using the Serper API and OpenAI's language models.
 
 - **Simple Approach**: Fetches Google search results and summarizes them using a language model.
 - **Complex Approach**: Fetches Google search results, scrapes each result's webpage content, stores the content in a local vector store (HNSWLib), and provides detailed answers using the language model and the vector store.
